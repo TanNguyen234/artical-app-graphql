@@ -13,5 +13,16 @@ export const resolvers = {
    ;
       return articles;
     },
+
+    getArticle: async (_ : any, args: any) => {
+        const { id } = args;
+        
+        const article = await Artical.findOne({
+          _id: id,
+          deleted: false,
+        });
+     ;
+        return article;
+    },
   },
 };
