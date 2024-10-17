@@ -16,7 +16,7 @@ export const resolvers = {
 
     getArticle: async (_ : any, args: any) => {
         const { id } = args;
-        
+
         const article = await Artical.findOne({
           _id: id,
           deleted: false,
@@ -25,4 +25,14 @@ export const resolvers = {
         return article;
     },
   },
+  Mutation:  {
+    createArticle: async (_ : any, args: any) => {
+      const { artical } = args;
+      
+      const record = new Artical(artical)
+      await record.save();
+
+      return record
+    },
+  } 
 };
