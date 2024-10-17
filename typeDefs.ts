@@ -8,10 +8,17 @@ export const typeDefs = gql`
       description: String
     } 
 
+    type Category {        #Định kiểu trường nào có thể lấy
+      id: ID,
+      title: String,
+      avatar: String
+    } 
+
     type Query {
-      hello: String,
       getListArticle: [Article],
-      getArticle(id: ID): Article
+      getArticle(id: ID): Article,
+      getListCategory: [Category],
+      getCategory(id: ID): Category
     }
 
     input ArticleInput {    #Định kiểu gửi
@@ -20,9 +27,18 @@ export const typeDefs = gql`
       description: String
     }
 
+    input CategoryInput {    #Định kiểu gửi
+      title: String,
+      avatar: String
+    }
+
     type Mutation {            
       createArticle(article: ArticleInput): Article
       deleteArticle(id: ID): String
       updateArticle(id: ID, article: ArticleInput): Article
+
+      createCategory(category: CategoryInput): Category
+      deleteCategory(id: ID): String
+      updateCategory(id: ID, category: CategoryInput): Category
     }
 `;
