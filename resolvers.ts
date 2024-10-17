@@ -41,6 +41,19 @@ export const resolvers = {
           return category;
       },
   },
+
+  Article: { //Ghi giống bên type của typeDefs.ts
+    category: async (article: any) => {     //Nó đang lập quan như for of
+      const category = await Category.findOne({
+        _id: article.categoryId,
+        deleted: false
+      })
+      console.log(article.categoryId, category)
+
+      return category;
+    } 
+  },
+
   Mutation:  {
     createArticle: async (_ : any, args: any) => {
       const { article } = args;
@@ -108,5 +121,7 @@ export const resolvers = {
   
           return record
       }
-  } 
+  },
+
+  
 };
