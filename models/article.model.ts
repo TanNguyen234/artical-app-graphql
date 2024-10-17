@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const articalSchema = new mongoose.Schema(
+const articleSchema = new mongoose.Schema(
     {
         title: String,
         avatar: String,
@@ -15,6 +15,6 @@ const articalSchema = new mongoose.Schema(
     }
 )
 
-const Artical = mongoose.model("Artical", articalSchema, 'articals')
+const Article = mongoose.model("Article", articleSchema, 'articles')
 
-export default Artical;
+export default Article;
