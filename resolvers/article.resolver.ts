@@ -1,7 +1,7 @@
-import Article from "./models/article.model";
-import Category from "./models/category.model";
+import Article from "../models/article.model";
+import Category from "../models/category.model";
 
-export const resolvers = {
+export const resolversArticle = {
   Query: {
     getListArticle: async () => {
       const articles = await Article.find({
@@ -21,25 +21,6 @@ export const resolvers = {
      ;
         return article;
     },
-
-    getListCategory: async () => {
-        const categories = await Category.find({
-          deleted: false,
-        });
-     
-        return categories;
-      },
-  
-      getCategory: async (_ : any, args: any) => {
-          const { id } = args;
-  
-          const category = await Category.findOne({
-            _id: id,
-            deleted: false,
-          });
-       ;
-          return category;
-      },
   },
 
   Article: { //Ghi giống bên type của typeDefs.ts
@@ -87,40 +68,5 @@ export const resolvers = {
         return record
     
     },
-    
-    createCategory: async (_ : any, args: any) => {
-        const { category } = args;
-        
-        const record = new Category(category)
-        await record.save();
-  
-        return record
-      },
-      deleteCategory: async (_ : any, args: any) => {
-          const { id } = args;
-  
-          await Category.updateOne({
-              _id: id,
-          }, {
-              deleted: true,
-              deletedAt: Date.now()
-          })
-  
-          return "Deleted successfully"
-      },
-      updateCategory: async (_ : any, args: any) => {
-          const { id, category } = args;
-  
-          await Category.updateOne({
-              _id: id,
-              deleted: false
-          }, category)
-  
-          const record = await Category.findOne({ _id: id})
-  
-          return record
-      }
   },
-
-  
 };
