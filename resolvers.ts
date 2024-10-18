@@ -48,7 +48,6 @@ export const resolvers = {
         _id: article.categoryId,
         deleted: false
       })
-      console.log(article.categoryId, category)
 
       return category;
     } 

@@ -25,7 +25,8 @@ export const typeDefs = gql`
     input ArticleInput {    #Định kiểu gửi
       title: String,
       avatar: String,
-      description: String
+      description: String,
+      categoryId: String,
     }
 
     input CategoryInput {    #Định kiểu gửi
