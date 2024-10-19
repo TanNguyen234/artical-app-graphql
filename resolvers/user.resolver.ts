@@ -4,28 +4,34 @@ import md5 from 'md5';
 
 export const resolversUser = {
   Query: {
-    getUser: async (_: any, args: any) => {
-        const { id } = args
-
-        const user = await User.findOne({
-            _id: id,
-            deleted: false,
-        })
-
-        if(!user) {
-            return {
-                code: 404,
-                message: "User not found"
-            }
+    getUser: async (_: any, args: any, context: any) => {
+        const token: string = context?.user?.token;
+        if(token) {
+            const user = await User.findOne({
+                token: token,
+                deleted: false,
+            })
+    
+            if(!user) {
+                return {
+                    code: 404,
+                    message: "User not found"
+                }
+            } else {
+                return {
+                    code: 200,
+                    message: "Get user successfully",
+                    id: user.id,
+                    fullName: user.fullName,
+                    email: user.email,
+                    token: user.token,
+                }
+            }   
         } else {
             return {
-                code: 200,
-                message: "Get user successfully",
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                token: user.token,
-            }
+                code: 404,
+                message: "User is not authenticated or token is missing",
+            };
         }
     }
   },

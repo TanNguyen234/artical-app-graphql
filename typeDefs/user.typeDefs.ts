@@ -11,9 +11,7 @@ export const typeDefsUser = gql`
     }
 
     type Query {
-      getUser( id: ID ): User,
-
-      getArticle(id: ID): Article
+      getUser: User,
     }
 
     input RegisterUserInput {    #Định kiểu gửi
