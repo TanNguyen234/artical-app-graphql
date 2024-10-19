@@ -10,19 +10,11 @@ export const typeDefsUser = gql`
       message: String
     }
 
-    # type Query {
-    #   getListArticle(
-    #     sortKey: String, 
-    #     sortValue: String,
-    #     currentPage: Int = 1,
-    #     limitItem: Int = 2,
-    #     filterKey: String,
-    #     filterValue: String,
-    #     keyword: String
-    #   ): [User],
+    type Query {
+      getUser( id: ID ): User,
 
-    #   getArticle(id: ID): Article
-    # }
+      getArticle(id: ID): Article
+    }
 
     input RegisterUserInput {    #Định kiểu gửi
       fullName: String,
