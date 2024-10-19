@@ -29,7 +29,7 @@ export const resolversUser = {
             code: 400,
             message: "Email already exists"
         }
-        
+
       } else {
         user.password = md5(user.password)
         user.token = generateRandomString(30)
@@ -47,17 +47,36 @@ export const resolversUser = {
         }
       }
     },
-    deleteArticle: async (_ : any, args: any) => {
-        const { id } = args;
+    loginUser: async (_ : any, args: any) => {
+        const { email, password } = args.user
 
-        await User.updateOne({
-            _id: id,
-        }, {
-            deleted: true,
-            deletedAt: Date.now()
+        const userExist = await User.findOne({
+            email: email,
+            deleted: false,
         })
 
-        return "Deleted successfully"
+        if(!userExist) {
+            return {
+                code: 400,
+                message: "Email doesn't exist"
+            }
+        }
+
+        if(md5(password) !== userExist.password) {
+            return {
+                code: 400,
+                message: "Password is incorrect"
+            }
+        }
+
+        return {
+            code: 200,
+            message: "Login successfully",
+            id: userExist.id,
+            fullName: userExist.fullName,
+            email: userExist.email,
+            token: userExist.token,
+        }
     },
     updateUser: async (_ : any, args: any) => {
         const { id, user } = args;

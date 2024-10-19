@@ -30,9 +30,14 @@ export const typeDefsUser = gql`
       password: String,
     }
 
+    input LoginUserInput {    #Định kiểu gửi
+      email: String,
+      password: String
+    }
+
     type Mutation {             
       registerUser(user: RegisterUserInput): User
-      deleteUser(id: ID): String
+      loginUser(user: LoginUserInput): User
       updateUser(id: ID, user: RegisterUserInput): User
     }
 `;
